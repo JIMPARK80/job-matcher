@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from io import BytesIO
 from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_urls_from_roles
 
@@ -20,8 +20,10 @@ def upload_resume():
     if file.filename == '':
         return "No file selected", 400
     
-    file_stream = file.read()
+    if not file.filename.endswith('.pdf'):
+        return "Only PDF files are supported", 400
     
+    file_stream = file.read()
     
     # keywords extraction / 키워드 추출
     keywords = extract_keywords_from_resume(file_stream)
