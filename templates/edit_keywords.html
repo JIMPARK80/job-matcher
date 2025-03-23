@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Keywords</title>
+</head>
+<body>
+    <h2>📝 Edit Extracted Keywords</h2>
+    <p>You can modify the extracted keywords before job matching.</p>
+
+    <form method="POST" action="/process_keywords">
+        <textarea name="edited_keywords" rows="10" cols="60">{{ keywords | join(', ') }}</textarea>
+        <br><br>
+        <input type="hidden" name="filename" value="{{ filename }}">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

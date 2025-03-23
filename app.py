@@ -28,29 +28,45 @@ def upload_resume():
     
     file_stream = file.read()
     
-    try: 
-        # keywords extraction / 키워드 추출
+    try:
+        # 키워드 추출 / Extract keywords
         keywords = extract_keywords_from_resume(file_stream)
 
-        # Suggested position per keyword / 키워드 별 제안된 포지션
-        matched_roles = {
-            kw: keyword_to_roles.get(kw, ["(no match)"])
-            for kw in keywords
-        }
-        
-        job_links = google_job_urls_from_roles(matched_roles)
-
+        # 키워드 편집 페이지로 렌더링 / Render the keyword editing page
         return render_template(
-            'result.html',
+            'edit_keywords.html',
             keywords = keywords,
-            matched_roles = matched_roles,
-            google_links = job_links,
             filename = file.filename
         )
         
     except Exception as e:
         print(f"[Error] Resume processing failed: {e}")  # 서버 로그 출력
         return "❌ An error occurred while processing your resume. Please try again later.", 500
+
+# Process edited keywords -> result page / 편집된 키워드 처리 -> 결과 페이지 렌더링
+@app.route('/process_keywords', methods=['POST'])
+def process_keywords():
+    edited = request.form.get('edited_keywords', '')
+    filename = request.form.get('filename', 'resume.pdf')
+
+    # 문자열 → 키워드 리스트로 변환 (쉼표로 분리)
+    keywords = [kw.strip().lower() for kw in edited.split(',') if kw.strip()]
+
+    matched_roles = {
+        kw: keyword_to_roles.get(kw, ["(no match)"])
+        for kw in keywords
+    }
+    job_links = google_job_urls_from_roles(matched_roles)
+
+    return render_template(
+        'result.html',
+        keywords=keywords,
+        matched_roles=matched_roles,
+        google_links=job_links,
+        filename=filename
+    )
+
+
 
 # Error handling / 오류 처리
 @app.errorhandler(413)
