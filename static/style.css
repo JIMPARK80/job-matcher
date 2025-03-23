@@ -59,3 +59,32 @@ font-size: 0.9rem;
     margin-top: 5px;
   }
   
+  .keyword-box {
+    background-color: #f0f9f0;
+    border: 1px solid #c1e1c1;
+    padding: 15px 20px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin-bottom: 30px;
+  }
+  
+  .keyword-tags {
+    margin-top: 10px;
+  }
+  
+  .tag {
+    display: inline-block;
+    background-color: #e0f0ff;
+    color: #005580;
+    padding: 6px 12px;
+    margin: 5px 6px 0 0;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .tag:hover {
+    background-color: #cfe8ff;
+  }
+  

@@ -7,12 +7,15 @@
 <body>
   <h2>📄 Resume Analyzed: {{ filename }}</h2>
 
-  <h3>✅ Keywords Found:</h3>
-    <ul>
-        {% for kw in keywords %}
-        <li>{{ kw }}</li>
-        {% endfor %}
-    </ul>
+  <div class="keyword-box">
+    <h3>✅ Keywords Found:</h3>
+    <div class="keyword-tags">
+      {% for kw in keywords %}
+        <span class="tag">{{ kw }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  
 
   <h3>💼 Suggested Roles:</h3>
     <ul>
