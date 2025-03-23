@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request
-import os
+from io import BytesIO
 from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_urls_from_roles
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'PDF'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Home page / 홈 페이지
 @app.route('/')
@@ -22,11 +20,11 @@ def upload_resume():
     if file.filename == '':
         return "No file selected", 400
     
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-    file.save(filepath)
+    file_stream = file.read()
+    
     
     # keywords extraction / 키워드 추출
-    keywords = extract_keywords_from_resume(filepath)
+    keywords = extract_keywords_from_resume(file_stream)
 
     # Suggested position per keyword / 키워드 별 제안된 포지션
     matched_roles = {

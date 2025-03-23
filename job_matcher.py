@@ -1,9 +1,10 @@
-import pdfplumber
-import re
+from io import BytesIO  # BytesIO: A stream implementation using an in-memory bytes buffer
+import pdfplumber # pdfplumber: A tool for extracting text and images from PDFs
+import re # re: Regular expression operations
 
 # 1. Technical Keywords Extraction Function / 기술 키워드 추출 함수 
-def extract_keywords_from_resume(pdf_path): # PDF 경로
-    with pdfplumber.open(pdf_path) as pdf: # Open PDF / PDF 열기
+def extract_keywords_from_resume(file_stream): # PDF 경로
+    with pdfplumber.open(BytesIO(file_stream)) as pdf: # Open PDF / PDF 열기
         text = '' # Initialize text / 텍스트 초기화
         for page in pdf.pages: # Loop through each page / 각 페이지 반복
             page_text = page.extract_text() # Extract text from page / 페이지에서 텍스트 추출
