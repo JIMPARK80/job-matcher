@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Match Results</title>
+</head>
+<body>
+  <h2>📄 Resume Analyzed: {{ filename }}</h2>
+
+  <h3>✅ Keywords Found:</h3>
+  <ul>
+    {% for kw in keywords %}
+      <li>{{ kw }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>💼 Suggested Roles:</h3>
+  <ul>
+    {% for kw, roles in matched_roles.items() %}
+      <li><strong>{{ kw }}:</strong> {{ roles | join(', ') }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>🔗 Google Job Search Links:</h3>
+  <ul>
+    {% for kw, url in google_links.items() %}
+      <li><a href="{{ url }}" target="_blank">{{ kw }} Job in Toronto</a></li>
+    {% endfor %}
+  </ul>
+
+  <br>
+  <a href="/">🔁 Upload another resume</a>
+</body>
+</html>
