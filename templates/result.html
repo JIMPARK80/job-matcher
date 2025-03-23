@@ -17,12 +17,22 @@
   </div>
   
 
-  <h3>💼 Suggested Roles:</h3>
-    <ul>
-        {% for kw, roles in matched_roles.items() %}
-        <li><strong>{{ kw }}:</strong> {{ roles | join(', ') }}</li>
-        {% endfor %}
-    </ul>
+  <div class="role-box">
+    <h3>💼 Suggested Roles:</h3>
+    <div class="role-cards">
+      {% for kw, roles in matched_roles.items() %}
+      <div class="role-card">
+        <div class="keyword-title">{{ kw }}</div>
+        <div class="role-tags">
+          {% for role in roles %}
+            <span class="tag">{{ role }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
 
   <h3>📘 Role Descriptions:</h3>
     <ul>
