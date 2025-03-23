@@ -1,6 +1,33 @@
 from io import BytesIO  # BytesIO: A stream implementation using an in-memory bytes buffer
 import pdfplumber # pdfplumber: A tool for extracting text and images from PDFs
 import re # re: Regular expression operations
+from serpapi import GoogleSearch # serpapi: A Python client for SerpApi
+import os # os: Miscellaneous operating system interfaces
+
+
+# API Key는 환경변수 또는 config 파일로 관리 권장
+SERPAPI_KEY = os.getenv("SERPAPI_KEY", "5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117")
+
+def search_google_jobs(query, location="Toronto"):
+    params = {
+        "q": f"{query} jobs in {location}",
+        "location": location,
+        "hl": "en",
+        "api_key": SERPAPI_KEY
+    }
+    search = GoogleSearch(params)
+    results = search.get_dict()
+
+    print("[DEBUG] SERPAPI 응답 구조:")
+    import pprint; pprint.pprint(results)
+
+    # 아래는 fallback 로직 포함
+    if "jobs_results" in results:
+        return results["jobs_results"]
+    elif "organic_results" in results:
+        return results["organic_results"]
+    else:
+        return []
 
 # 1. Technical Keywords Extraction Function / 기술 키워드 추출 함수 
 def extract_keywords_from_resume(file_stream): # PDF 경로

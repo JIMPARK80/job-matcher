@@ -6,6 +6,7 @@
     <script id="roles-json" type="application/json">{{ unique_roles | tojson }}</script>
 
 </head>
+
 <body>
   <h2>📄 Resume Analyzed: {{ filename }}</h2>
 
@@ -77,6 +78,10 @@
           </div>
           {% endfor %}
         </div>
+
+        <h3>🔍 Google Job Previews</h3>
+        <div id="job-results" class="job-cards"></div>
+
     </div>
       
 

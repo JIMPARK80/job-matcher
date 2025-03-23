@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from io import BytesIO
-from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_urls_from_roles, role_descriptions
+from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_urls_from_roles, role_descriptions, search_google_jobs
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Limited size as 2MB
@@ -79,6 +79,10 @@ def process_keywords():
         unique_roles=unique_roles 
     )
 
+@app.route("/job_preview/<role>/<city>")
+def job_preview(role, city):
+    jobs = search_google_jobs(role, city)
+    return jsonify(jobs[:5])  # 최대 5개만 반환
 
 
 # Error handling / 오류 처리
