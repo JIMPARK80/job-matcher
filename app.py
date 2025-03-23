@@ -3,6 +3,7 @@ from io import BytesIO
 from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_urls_from_roles
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Limited size as 2MB
 
 # Home page / 홈 페이지
 @app.route('/')
@@ -16,10 +17,12 @@ def upload_resume():
     if 'resume' not in request.files:
         return "No file uploaded", 400
     
+    # Get the file / 파일 가져오기
     file = request.files['resume']
     if file.filename == '':
         return "No file selected", 400
     
+    # Check if the file is a PDF / 파일이 PDF인지 확인
     if not file.filename.endswith('.pdf'):
         return "Only PDF files are supported", 400
     
@@ -43,6 +46,12 @@ def upload_resume():
         google_links = job_links,
         filename = file.filename
     )
+
+# Error handling / 오류 처리
+@app.errorhandler(413)
+def file_too_large(e):
+    return "❌ File too large. Please upload a PDF under 2MB.", 413
+
 
 if __name__ == '__main__':
     app.run(debug=True)
