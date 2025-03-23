@@ -14,7 +14,9 @@ def extract_keywords_from_resume(pdf_path): # PDF 경로
         'JavaScript', 'React', 'Python', 'Java', 'HTML', 'CSS', 'Node.js', 'SQL', 'AWS',
         'Docker', 'Kubernetes', 'Spring', 'Hibernate', 'Django', 'MongoDB', 'Angular', 'Bootstrap',
         'Vue.js', 'Flask', 'REST', 'API', 'Git', 'CI/CD', 'Jenkins', 'Agile', 'Scrum', 'Kanban',
-        'TDD', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'Objective-C'
+        'TDD', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'Objective-C', 'Unity', 'TensorFlow', 'PyTorch',
+        'Unreal Engine', 'Machine Learning', 'Deep Learning', 'Computer Vision', 'NLP', 'Big Data',
+    
     ] # List of technical keywords / 기술 키워드 목록
 
     # improved accurarcy: using word boundaries  / 정확도 개선: 단어 경계 사용
@@ -24,6 +26,54 @@ def extract_keywords_from_resume(pdf_path): # PDF 경로
     ] # Extract keywords from text / 텍스트에서 키워드 추출
 
     return keywords_found # Return keywords / 키워드 반환
+
+keyword_to_roles = {
+    "JavaScript": ["Frontend Developer", "Web Developer"],
+    "React": ["Frontend Developer", "UI Engineer"],
+    "Python": ["Backend Developer", "Data Analyst", "ML Engineer"],
+    "Java": ["Backend Developer", "Android Developer"],
+    "HTML": ["Frontend Developer", "Web Developer"],
+    "CSS": ["Frontend Developer", "UI Developer"],
+    "Node.js": ["Full Stack Developer", "Backend Developer"],
+    "SQL": ["Data Analyst", "Database Developer", "BI Developer"],
+    "AWS": ["Cloud Engineer", "DevOps Engineer"],
+    "Docker": ["DevOps Engineer", "Cloud Architect"],
+    "Kubernetes": ["DevOps Engineer", "Cloud Engineer"],
+    "Spring": ["Java Developer", "Backend Developer"],
+    "Hibernate": ["Java Developer", "Backend Developer"],
+    "Django": ["Backend Developer", "Python Developer"],
+    "MongoDB": ["Backend Developer", "Database Engineer"],
+    "Angular": ["Frontend Developer", "UI Engineer"],
+    "Bootstrap": ["Frontend Developer", "UI Engineer"],
+    "Vue.js": ["Frontend Developer"],
+    "Flask": ["Backend Developer", "Python Developer"],
+    "REST": ["Backend Developer", "API Developer"],
+    "API": ["API Developer", "Software Engineer"],
+    "Git": ["Software Developer", "Version Control Specialist"],
+    "CI/CD": ["DevOps Engineer", "Automation Engineer"],
+    "Jenkins": ["DevOps Engineer", "CI/CD Engineer"],
+    "Agile": ["Scrum Master", "Project Manager", "Agile Coach"],
+    "Scrum": ["Scrum Master", "Agile Facilitator"],
+    "Kanban": ["Project Manager", "Scrum Master"],
+    "TDD": ["Software Engineer", "QA Engineer"],
+    "C++": ["Embedded Developer", "Game Developer", "Software Engineer"],
+    "C#": ["Game Developer", ".NET Developer"],
+    "Ruby": ["Web Developer", "Backend Developer"],
+    "PHP": ["Web Developer", "Backend Developer"],
+    "Swift": ["iOS Developer"],
+    "Objective-C": ["iOS Developer"],
+    "Unity": ["Game Developer", "XR Developer"],
+    "TensorFlow": ["ML Engineer", "Deep Learning Engineer"],
+    "PyTorch": ["ML Engineer", "Deep Learning Engineer"],
+    "Unreal Engine": ["Game Developer", "3D Simulation Developer"],
+    "Machine Learning": ["ML Engineer", "AI Researcher"],
+    "Deep Learning": ["Deep Learning Engineer", "AI Researcher"],
+    "Computer Vision": ["Computer Vision Engineer", "AI Developer"],
+    "NLP": ["NLP Engineer", "AI Researcher"],
+    "Big Data": ["Data Engineer", "Data Scientist"]
+}
+
+
 
 # 2. Create a Google Search link / 구글 검색 링크 생성
 def google_job_url(keyword, location="Toronto"): # Default location: Toronto / 기본 위치: 토론토
@@ -42,6 +92,14 @@ if __name__ == "__main__":
         # Print keywords / 키워드 출력
         print("\n📄 Keywords found in your resume:")
         print(", ".join(keywords))
+        
+        # Suggested roles per keyword / 키워드 별 제안된 역할
+        print("\n💼 Suggested roles per keyword:")
+        for kw in keywords:
+            roles = keyword_to_roles.get(kw, ["(No specific match)"])
+            print(f"- {kw}: {', '.join(roles)}")
+
+        # Google links / 구글 링크
         print("\n🔗 Google job search links:")
         for kw in keywords: # Print Google job search links / 구글 직업 검색 링크 출력
             print(f"- {kw}: {google_job_url(kw)}") 
@@ -50,3 +108,4 @@ if __name__ == "__main__":
         print(f"❌ Could not find file: {resume_pdf}")
     except Exception as e: # If error occurred / 오류 발생 시
         print(f"❌ Error occurred: {e}")
+
