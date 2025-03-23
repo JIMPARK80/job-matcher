@@ -93,7 +93,8 @@ role_descriptions = {
     "project manager": "Plans, executes, and closes projects efficiently.",
     "scrum master": "Facilitates agile development and daily stand-ups.",
     "ai researcher": "Explores cutting-edge AI algorithms and models.",
-    "xr developer": "Creates extended reality applications for AR/VR."
+    "xr developer": "Creates extended reality applications for AR/VR.",
+
 }
 
 role_descriptions.update({
@@ -101,8 +102,15 @@ role_descriptions.update({
     "database engineer": "Designs and optimizes database systems for performance, scalability, and security.",
     "full stack developer": "Handles both front-end and back-end development, bridging UI with server-side logic.",
     "software developer": "Writes and maintains software applications, tools, or systems for a variety of purposes.",
-    "ui engineer": "Bridges design and development by implementing high-quality, scalable user interfaces with engineering principles."
-
+    "ui engineer": "Bridges design and development by implementing high-quality, scalable user interfaces with engineering principles.",
+    "figma": ["UI/UX Designer", "Web Designer"],
+    "photoshop": ["Graphic Designer", "UI/UX Designer"],
+    "illustrator": ["Graphic Designer", "UI/UX Designer"],
+    "catia": ["Optical Design Engineer"],
+    "speos": ["Optical Design Engineer"],
+    "jira": ["QA Tester", "Project Coordinator"],
+    "trello": ["Project Coordinator"],
+    "problem-solving": ["QA Tester", "Software Developer"]
 })
 
 
