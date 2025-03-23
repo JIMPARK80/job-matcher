@@ -100,7 +100,9 @@ role_descriptions.update({
     "3d simulation developer": "Develops immersive 3D environments for simulation, training, or visualization purposes.",
     "database engineer": "Designs and optimizes database systems for performance, scalability, and security.",
     "full stack developer": "Handles both front-end and back-end development, bridging UI with server-side logic.",
-    "software developer": "Writes and maintains software applications, tools, or systems for a variety of purposes."
+    "software developer": "Writes and maintains software applications, tools, or systems for a variety of purposes.",
+    "ui engineer": "Bridges design and development by implementing high-quality, scalable user interfaces with engineering principles."
+
 })
 
 
