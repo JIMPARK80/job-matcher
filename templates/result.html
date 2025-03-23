@@ -3,6 +3,8 @@
 <head>
     <title>Match Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script id="roles-json" type="application/json">{{ unique_roles | tojson }}</script>
+
 </head>
 <body>
   <h2>📄 Resume Analyzed: {{ filename }}</h2>
@@ -34,19 +36,24 @@
   </div>
   
 
-  <h3>📘 Role Descriptions:</h3>
-    <ul>
-        {% for role, desc in role_desc.items() %}
-            <li><strong>{{ role }}:</strong> {{ desc }}</li>
-        {% endfor %}
-    </ul>
-
+  <div class="description-box">
+    <h3>📘 Role Descriptions:</h3>
+    <div class="description-cards">
+      {% for role in unique_roles %}
+      <div class="description-card">
+        <div class="role-title">{{ role }}</div>
+        <div class="role-desc">{{ role_desc.get(role, '(description not available)') }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
 
   <h3>🌍 Select City:</h3>
     <form id="city-form">
       <select id="city-select" name="city">
         <option value="Toronto" selected>Toronto</option>
-        <option value="Ontario" selected>Ontario</option>
+        <option value="Ontario">Ontario</option>
         <option value="Vancouver">Vancouver</option>
         <option value="Calgary">Calgary</option>
         <option value="Ottawa">Ottawa</option>
@@ -58,22 +65,25 @@
     </form>
 
 
-    <h3>🔗 Google Job Search Links:</h3>
-    <ul id="job-links">
-      {% for role in unique_roles %}
-      <li>
-        <a href="https://www.google.com/search?q={{ role | urlencode }} Job in Toronto" target="_blank">
-          {{ role }} Job in Toronto
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="link-box">
+        <h3>🔗 Google Job Search Links:</h3>
+        <div id="job-links" class="link-cards">
+          {% for role in unique_roles %}
+          <div class="link-card">
+            <div class="link-role">{{ role }}</div>
+            <a class="link-button" href="https://www.google.com/search?q={{ role | urlencode }} Job in Toronto" target="_blank">
+              🔍 Search Job
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+      
 
   <br>
   <a href="/">🔁 Upload another resume</a>
 
   <!-- roles to JSON -->
-  <script id="roles-json" type="application/json">{{ unique_roles | tojson }}</script>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
