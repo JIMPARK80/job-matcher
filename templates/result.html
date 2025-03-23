@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Match Results</title>
+    <title>Match Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <h2>📄 Resume Analyzed: {{ filename }}</h2>
@@ -27,14 +28,39 @@
         {% endfor %}
     </ul>
 
-  <h3>🔗 Google Job Search Links:</h3>
-    <ul>
-        {% for role, url in google_links %}
-        <li><a href="{{ url }}" target="_blank">{{ role }} Job in Toronto</a></li>
-        {% endfor %}
+
+  <h3>🌍 Select City:</h3>
+    <form id="city-form">
+      <select id="city-select" name="city">
+        <option value="Toronto" selected>Toronto</option>
+        <option value="Ontario" selected>Ontario</option>
+        <option value="Vancouver">Vancouver</option>
+        <option value="Calgary">Calgary</option>
+        <option value="Ottawa">Ottawa</option>
+        <option value="Montreal">Montreal</option>
+        <option value="Custom">Custom...</option>
+      </select>
+  
+      <input type="text" id="custom-city" name="custom-city" placeholder="Enter city..." style="display: none;">
+    </form>
+
+
+    <h3>🔗 Google Job Search Links:</h3>
+    <ul id="job-links">
+      {% for role in unique_roles %}
+      <li>
+        <a href="https://www.google.com/search?q={{ role | urlencode }} Job in Toronto" target="_blank">
+          {{ role }} Job in Toronto
+        </a>
+      </li>
+      {% endfor %}
     </ul>
 
   <br>
   <a href="/">🔁 Upload another resume</a>
+
+  <!-- roles to JSON -->
+  <script id="roles-json" type="application/json">{{ unique_roles | tojson }}</script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
