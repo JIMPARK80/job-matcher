@@ -96,6 +96,13 @@ role_descriptions = {
     "xr developer": "Creates extended reality applications for AR/VR."
 }
 
+role_descriptions.update({
+    "3d simulation developer": "Develops immersive 3D environments for simulation, training, or visualization purposes.",
+    "database engineer": "Designs and optimizes database systems for performance, scalability, and security.",
+    "full stack developer": "Handles both front-end and back-end development, bridging UI with server-side logic.",
+    "software developer": "Writes and maintains software applications, tools, or systems for a variety of purposes."
+})
+
 
 
 # 2. Create a Google Search link / 구글 검색 링크 생성
