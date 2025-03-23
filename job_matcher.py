@@ -74,6 +74,27 @@ keyword_to_roles = {
     "big data": ["Data Engineer", "Data Scientist"]
 }
 
+role_descriptions = {
+    "frontend developer": "Creates user-facing interfaces using HTML, CSS, and JavaScript.",
+    "backend developer": "Builds server-side logic, APIs, and database integration.",
+    "web developer": "Develops and maintains websites and web applications.",
+    "data analyst": "Analyzes data to help businesses make decisions.",
+    "ml engineer": "Designs machine learning systems and models.",
+    "game developer": "Builds interactive games using game engines like Unity or Unreal.",
+    "devops engineer": "Manages infrastructure and deployment pipelines.",
+    "api developer": "Creates and maintains APIs for system integration.",
+    "cloud engineer": "Develops and manages cloud-based systems.",
+    "ui developer": "Implements visual designs into functional interfaces.",
+    "software engineer": "Designs and develops software systems and applications.",
+    "database developer": "Designs and optimizes database structures and queries.",
+    "version control specialist": "Manages codebases using Git and version control tools.",
+    "automation engineer": "Automates testing, deployment, and operations processes.",
+    "ci/cd engineer": "Implements Continuous Integration and Deployment systems.",
+    "project manager": "Plans, executes, and closes projects efficiently.",
+    "scrum master": "Facilitates agile development and daily stand-ups.",
+    "ai researcher": "Explores cutting-edge AI algorithms and models.",
+    "xr developer": "Creates extended reality applications for AR/VR."
+}
 
 
 

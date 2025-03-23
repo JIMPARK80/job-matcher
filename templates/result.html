@@ -7,25 +7,32 @@
   <h2>📄 Resume Analyzed: {{ filename }}</h2>
 
   <h3>✅ Keywords Found:</h3>
-  <ul>
-    {% for kw in keywords %}
-      <li>{{ kw }}</li>
-    {% endfor %}
-  </ul>
+    <ul>
+        {% for kw in keywords %}
+        <li>{{ kw }}</li>
+        {% endfor %}
+    </ul>
 
   <h3>💼 Suggested Roles:</h3>
-  <ul>
-    {% for kw, roles in matched_roles.items() %}
-      <li><strong>{{ kw }}:</strong> {{ roles | join(', ') }}</li>
-    {% endfor %}
-  </ul>
+    <ul>
+        {% for kw, roles in matched_roles.items() %}
+        <li><strong>{{ kw }}:</strong> {{ roles | join(', ') }}</li>
+        {% endfor %}
+    </ul>
+
+  <h3>📘 Role Descriptions:</h3>
+    <ul>
+        {% for role, desc in role_desc.items() %}
+            <li><strong>{{ role }}:</strong> {{ desc }}</li>
+        {% endfor %}
+    </ul>
 
   <h3>🔗 Google Job Search Links:</h3>
-  <ul>
-    {% for role, url in google_links %}
-     <li><a href="{{ url }}" target="_blank">{{ role }} Job in Toronto</a></li>
-    {% endfor %}
-  </ul>
+    <ul>
+        {% for role, url in google_links %}
+        <li><a href="{{ url }}" target="_blank">{{ role }} Job in Toronto</a></li>
+        {% endfor %}
+    </ul>
 
   <br>
   <a href="/">🔁 Upload another resume</a>
