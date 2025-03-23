@@ -22,8 +22,8 @@
 
   <h3>🔗 Google Job Search Links:</h3>
   <ul>
-    {% for kw, url in google_links.items() %}
-      <li><a href="{{ url }}" target="_blank">{{ kw }} Job in Toronto</a></li>
+    {% for role, url in google_links %}
+     <li><a href="{{ url }}" target="_blank">{{ role }} Job in Toronto</a></li>
     {% endfor %}
   </ul>
 

@@ -76,11 +76,15 @@ keyword_to_roles = {
 
 
 # 2. Create a Google Search link / 구글 검색 링크 생성
-def google_job_url(keyword, location="Toronto"): # Default location: Toronto / 기본 위치: 토론토
-    query = f"{keyword} job in {location}" # Create query / 쿼리 생성
-    
-     # Return Google search link / 구글 검색 링크 반환
-    return f"https://www.google.com/search?q={query.replace(' ', '+')}"
+def google_job_urls_from_roles(matched_roles, location="Toronto"):
+    job_links = []
+    for roles in matched_roles.values():
+        for role in roles:
+            query = f"{role} job in {location}"
+            url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
+            job_links.append((role, url))
+    return job_links
+
 
 # 3. Main run / 메인 실행
 if __name__ == "__main__":
@@ -102,7 +106,7 @@ if __name__ == "__main__":
         # Google links / 구글 링크
         print("\n🔗 Google job search links:")
         for kw in keywords: # Print Google job search links / 구글 직업 검색 링크 출력
-            print(f"- {kw}: {google_job_url(kw)}") 
+            print(f"- {kw}: {google_job_urls_from_roles(kw)}") 
 
     except FileNotFoundError: # If file not found / 파일을 찾을 수 없는 경우
         print(f"❌ Could not find file: {resume_pdf}")

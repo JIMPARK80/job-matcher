@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import os
-from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_url
+from job_matcher import extract_keywords_from_resume, keyword_to_roles, google_job_urls_from_roles
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'PDF'
@@ -33,18 +33,14 @@ def upload_resume():
         kw: keyword_to_roles.get(kw, ["(no match)"])
         for kw in keywords
     }
-
-    # Google search links / 구글 검색 링크
-    google_links = {
-        kw: google_job_url(kw)
-        for kw in keywords
-    }
+    
+    job_links = google_job_urls_from_roles(matched_roles)
 
     return render_template(
         'result.html',
         keywords = keywords,
         matched_roles = matched_roles,
-        google_links = google_links,
+        google_links = job_links,
         filename = file.filename
     )
 
