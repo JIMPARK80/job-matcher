@@ -1,17 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Resume Matcher</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% extends "base.html" %}
+{% block title %}Job Matcher - Upload{% endblock %}
 
-</head>
-<body>
-<div class="container">
-  <h2> Upload Your Resume (PDF)</h2>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="resume" accept=".pdf" required>
-    <button type="submit">Upload & Analyze</button>
+{% block content %}
+<div class="desktop">
+  <div class="overlap">
+    <div class="text-wrapper">JOB Position Matching APP</div>
+  </div>
+
+  <form action="/" method="POST" enctype="multipart/form-data">
+    <input type="file" name="resume">
+    <button type="submit">Analyze Resume</button>
   </form>
+  
+  
+  <div class="profile"></div>
+  <div class="skill"></div>
+  <div class="suggested-role"></div>
+  <div class="search-result"></div>
+
+  <div class="div">Profile</div>
+  <div class="text-wrapper-2">Suggested Role</div>
+  <div class="text-wrapper-3">Search Result</div>
+  <div class="text-wrapper-4">Skills</div>
+
+  <div class="overlap-group">
+    <div class="text-wrapper-5">NO</div>
+  </div>
+
+  <div class="div-wrapper">
+    <div class="text-wrapper-6">Yes</div>
+  </div>
+
+  <div class="text-wrapper-7">AI Assistance</div>
 </div>
-</body>
-</html>
+{% endblock %}

@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Keywords</title>
-</head>
-<body>
-    <h2>📝 Edit Extracted Keywords</h2>
-    <p>You can modify the extracted keywords before job matching.</p>
+{% extends "base.html" %}
+{% block title %}Edit Keywords{% endblock %}
 
-    <form method="POST" action="/process_keywords">
-        <textarea name="edited_keywords" rows="10" cols="60">{{ keywords | join(', ') }}</textarea>
-        <br><br>
-        <input type="hidden" name="filename" value="{{ filename }}">
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<h2 class="title">📝 Edit Extracted Keywords</h2>
+<p class="desc">You can modify the extracted keywords before job matching.</p>
+
+<form method="POST" action="/process_keywords" class="keyword-form">
+    <textarea name="edited_keywords" rows="10" cols="60">{{ keywords | join(', ') }}</textarea>
+    <br><br>
+    <input type="hidden" name="filename" value="{{ filename }}">
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

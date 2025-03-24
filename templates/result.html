@@ -1,94 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Match Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script id="roles-json" type="application/json">{{ unique_roles | tojson }}</script>
+{% extends "base.html" %}
+{% block title %}Match Results{% endblock %}
 
-</head>
+{% block content %}
+<div class="desktop">
 
-<body>
-  <h2>📄 Resume Analyzed: {{ filename }}</h2>
+  <div class="overlap">
+    <div class="text-wrapper">JOB Position Matching APP</div>
+  </div>
 
-  <div class="keyword-box">
-    <h3>✅ Keywords Found:</h3>
-    <div class="keyword-tags">
+  <!-- Profile (추후 로그인 연동시 사용) -->
+  <div class="profile"></div>
+
+  <!-- Skills Section -->
+  <div class="skill">
+    <h3>✅ Skills</h3>
+    <div>
       {% for kw in keywords %}
-        <span class="tag">{{ kw }}</span>
+        <span>{{ kw }}</span>
       {% endfor %}
     </div>
   </div>
-  
 
-  <div class="role-box">
+  <!-- Suggested Roles -->
+  <div class="suggested-role">
     <h3>💼 Suggested Roles:</h3>
-    <div class="role-cards">
-      {% for kw, roles in matched_roles.items() %}
-      <div class="role-card">
-        <div class="keyword-title">{{ kw }}</div>
-        <div class="role-tags">
-          {% for role in roles %}
-            <span class="tag">{{ role }}</span>
-          {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+    {% for kw, roles in matched_roles.items() %}
+      <p><strong>{{ kw }}</strong>: {{ roles | join(', ') }}</p>
+    {% endfor %}
   </div>
-  
 
-  <div class="description-box">
-    <h3>📘 Role Descriptions:</h3>
-    <div class="description-cards">
-      {% for role in unique_roles %}
-      <div class="description-card">
-        <div class="role-title">{{ role }}</div>
-        <div class="role-desc">{{ role_desc.get(role, '(description not available)') }}</div>
-      </div>
-      {% endfor %}
-    </div>
+  <!-- Google Job Links Preview -->
+  <div class="search-result">
+    <h3>🔗 Google Job Links</h3>
+    {% for role, url in google_links %}
+      <p>{{ role }}: <a href="{{ url }}" target="_blank">🔍 Search</a></p>
+    {% endfor %}
   </div>
-  
 
-  <h3>🌍 Select City:</h3>
-    <form id="city-form">
-      <select id="city-select" name="city">
-        <option value="Toronto" selected>Toronto</option>
-        <option value="Ontario">Ontario</option>
-        <option value="Vancouver">Vancouver</option>
-        <option value="Calgary">Calgary</option>
-        <option value="Ottawa">Ottawa</option>
-        <option value="Montreal">Montreal</option>
-        <option value="Custom">Custom...</option>
-      </select>
-  
-      <input type="text" id="custom-city" name="custom-city" placeholder="Enter city..." style="display: none;">
-    </form>
+  <div class="div">Profile</div>
+  <div class="text-wrapper-2">Suggested Role</div>
+  <div class="text-wrapper-3">Search Result</div>
+  <div class="text-wrapper-4">Skills</div>
 
+  <div class="overlap-group"><div class="text-wrapper-5">NO</div></div>
+  <div class="div-wrapper"><div class="text-wrapper-6">Yes</div></div>
+  <div class="text-wrapper-7">AI Assistance</div>
 
-    <div class="link-box">
-        <h3>🔗 Google Job Search Links:</h3>
-        <div id="job-links" class="link-cards">
-          {% for role in unique_roles %}
-          <div class="link-card">
-            <div class="link-role">{{ role }}</div>
-            <a class="link-button" href="https://www.google.com/search?q={{ role | urlencode }} Job in Toronto" target="_blank">
-              🔍 Search Job
-            </a>
-          </div>
-          {% endfor %}
-        </div>
-
-        <h3>🔍 Google Job Previews</h3>
-        <div id="job-results" class="job-cards"></div>
-
-    </div>
-      
-
-  <br>
-  <a href="/">🔁 Upload another resume</a>
-
-  <!-- roles to JSON -->
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+</div>
+{% endblock %}
