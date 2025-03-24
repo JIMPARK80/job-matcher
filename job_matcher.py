@@ -30,14 +30,19 @@ def search_google_jobs(query, location="Toronto"):
         return []
 
 # 1. Technical Keywords Extraction Function / 기술 키워드 추출 함수 
-def extract_keywords_from_resume(file_stream): # PDF 경로
-    with pdfplumber.open(BytesIO(file_stream)) as pdf: # Open PDF / PDF 열기
-        text = '' # Initialize text / 텍스트 초기화
-        for page in pdf.pages: # Loop through each page / 각 페이지 반복
-            page_text = page.extract_text() # Extract text from page / 페이지에서 텍스트 추출
-            if page_text: # If text exists / 텍스트가 있는 경우
-                text += page_text # Append text / 텍스트 추가
+def extract_keywords_from_resume(input_data, is_pdf=True):
+    try:
+        with pdfplumber.open(BytesIO(input_data)) as pdf:
+            text = ''
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text
+    except Exception as e:
+        print(f"[PDF Error] {e}")
+        raise
 
+        
     tech_keywords = [ 
         'JavaScript', 'React', 'Python', 'Java', 'HTML', 'CSS', 'Node.js', 'SQL', 'AWS',
         'Docker', 'Kubernetes', 'Spring', 'Hibernate', 'Django', 'MongoDB', 'Angular', 'Bootstrap',

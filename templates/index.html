@@ -1,36 +1,93 @@
-{% extends "base.html" %}
-{% block title %}Job Matcher - Upload{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="/static/css/globals.css" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <title>JOB Position Matching APP</title>
+</head>
+<body>
+  <div class="box">
+    <div class="upload-document-UI">
+      <!-- Title -->
+      <div class="title">
+        <div class="title-box">
+          <div class="title-text">JOB Position Matching APP</div>
+        </div>
+      </div>
 
-{% block content %}
-<div class="desktop">
-  <div class="overlap">
-    <div class="text-wrapper">JOB Position Matching APP</div>
+      <!-- Upload Section -->
+      <!-- ✅ 수정된 Form: Upload + Location 선택 같이 들어감 -->
+    <form method="POST" action="/submit_pdf" enctype="multipart/form-data">
+      <div class="upload-section">
+        <label class="upload-label">PDF File</label>
+        <input type="file" name="resume" accept=".pdf" class="upload-input" required />
+
+        <!-- ✅ Location 선택 -->
+        <label class="upload-label" style="margin-top: 10px;">Location</label>
+        <select name="location" class="dropdown">
+          <option value="Toronto" {% if location == 'Toronto' %}selected{% endif %}>Toronto</option>
+          <option value="Vancouver" {% if location == 'Vancouver' %}selected{% endif %}>Vancouver</option>
+          <option value="Montreal" {% if location == 'Montreal' %}selected{% endif %}>Montreal</option>
+          <option value="Calgary" {% if location == 'Calgary' %}selected{% endif %}>Calgary</option>
+          <option value="Ottawa" {% if location == 'Ottawa' %}selected{% endif %}>Ottawa</option>
+        </select>
+
+        <!-- ✅ Submit button -->
+        <button type="submit" class="submit-button">Submit</button>
+      </div>
+    </form>
+
+      <!-- Profile + Skills -->
+      <div class="profile-skill-row">
+        <div class="profile-box">
+          <div class="label">Profile</div>
+          <div class="output-box">{{ filename }}</div>
+        </div>
+        <div class="skills-box">
+          <div class="label">Skills</div>
+          <div class="output-box">
+            {% for kw in keywords %}
+              <span class="skill-tag">{{ kw }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Suggested Roles -->
+      <div class="suggested-role-box">
+        <div class="label">Suggested Role</div>
+        <div class="output-box">
+          {% for role in unique_roles %}
+            <span class="role-tag">{{ role }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Location + AI Toggle -->
+      <div class="location-ai-row">
+        <div class="ai-toggle-box">
+          <div class="label">AI Assistance</div>
+          <div class="ai-toggle">
+            <button class="ai-on">ON</button>
+            <button class="ai-off">Off</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Results -->
+      <div class="search-result-box">
+        <div class="label">Search Result</div>
+        <div class="output-box">
+          <ul>
+            {% for role, url in google_links %}
+              <li><a href="{{ url }}" target="_blank">🔗 {{ role }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <form action="/" method="POST" enctype="multipart/form-data">
-    <input type="file" name="resume">
-    <button type="submit">Analyze Resume</button>
-  </form>
-  
-  
-  <div class="profile"></div>
-  <div class="skill"></div>
-  <div class="suggested-role"></div>
-  <div class="search-result"></div>
-
-  <div class="div">Profile</div>
-  <div class="text-wrapper-2">Suggested Role</div>
-  <div class="text-wrapper-3">Search Result</div>
-  <div class="text-wrapper-4">Skills</div>
-
-  <div class="overlap-group">
-    <div class="text-wrapper-5">NO</div>
-  </div>
-
-  <div class="div-wrapper">
-    <div class="text-wrapper-6">Yes</div>
-  </div>
-
-  <div class="text-wrapper-7">AI Assistance</div>
-</div>
-{% endblock %}
+</body>
+</html>
