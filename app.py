@@ -3,11 +3,11 @@ from flask import Flask, render_template, request, jsonify
 from io import BytesIO
 from job_matcher import (
     extract_keywords_from_resume,
-    keyword_to_roles,
-    google_job_urls_from_roles,
     role_descriptions,
     search_google_jobs,
-    match_roles_with_priority
+    match_roles_with_priority,
+    extract_text_from_pdf,  # Added missing import
+    extract_profile_info  # Added missing import
 )
 
 app = Flask(__name__)
@@ -41,6 +41,8 @@ def submit_pdf():
 
     try:
         keywords = extract_keywords_from_resume(file_stream, is_pdf=True)
+        text = extract_text_from_pdf(file_stream)
+        profile_info = extract_profile_info(text)
 
         # 👉 역할 매칭
         matched_roles, unique_roles, top_roles = match_roles_with_priority(keywords)
@@ -61,7 +63,8 @@ def submit_pdf():
             role_desc=role_desc,
             unique_roles=unique_roles,
             location=location,
-            top_roles=top_roles
+            top_roles=top_roles,
+            profile=profile_info,
         )
 
     except Exception as e:

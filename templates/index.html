@@ -41,10 +41,18 @@
       <div class="profile-skill-row">
         <div class="profile-box">
           <div class="label">Profile</div>
-          <div class="output-box">{{ filename }}</div>
+            <p> - basic your profile </p>
+            <div class="output-box">
+            <p><strong>Name:</strong> {{ profile.name }}</p>
+            <p><strong>Email:</strong> {{ profile.email }}</p>
+            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+            <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a></p>
+            </div>
+          </div>
         </div>
         <div class="skills-box">
           <div class="label">Skills</div>
+          <p> - keywords from resume </p>
           <div class="output-box">
             {% for kw in keywords %}
               <span class="skill-tag">{{ kw }}</span>
@@ -56,6 +64,7 @@
       <!-- Suggested Roles -->
       <div class="suggested-role-box">
         <div class="label">Suggested Role</div>
+        <p> - Top-3 position from keywords </p>
         <div class="output-box">
           {% for role in unique_roles %}
             {% if role in top_roles %}
@@ -81,6 +90,7 @@
       <!-- Search Results -->
       <div class="search-result-box">
         <div class="label">Search Result</div>
+        <p> - Top-3 position search result </p>
         <div class="output-box">
           <ul>
             {% for role, url in google_links %}
