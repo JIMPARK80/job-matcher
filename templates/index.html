@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="/static/css/globals.css" />
   <link rel="stylesheet" href="/static/css/style.css" />
   <title>JOB Position Matching APP</title>
 </head>
@@ -59,7 +58,11 @@
         <div class="label">Suggested Role</div>
         <div class="output-box">
           {% for role in unique_roles %}
-            <span class="role-tag">{{ role }}</span>
+            {% if role in top_roles %}
+              <span class="role-tag strong-role">{{ role }}</span>
+            {% else %}
+                <span class="role-tag">{{ role }}</span>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -81,7 +84,7 @@
         <div class="output-box">
           <ul>
             {% for role, url in google_links %}
-              <li><a href="{{ url }}" target="_blank">🔗 {{ role }}</a></li>
+              <li><a href="{{ url }}" target="_blank">🔗 {{ role }} - {{location}} </a></li>
             {% endfor %}
           </ul>
         </div>

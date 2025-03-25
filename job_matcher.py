@@ -3,6 +3,7 @@ import pdfplumber # pdfplumber: A tool for extracting text and images from PDFs
 import re # re: Regular expression operations
 from serpapi import GoogleSearch # serpapi: A Python client for SerpApi
 import os # os: Miscellaneous operating system interfaces
+from collections import Counter # Counter: A dict subclass for counting hashable objects
 
 
 # API Key는 환경변수 또는 config 파일로 관리 권장
@@ -144,6 +145,21 @@ role_descriptions.update({
     "ui engineer": "Bridges design and development by implementing high-quality, scalable user interfaces with engineering principles.",
 })
 
+# 1-2._
+def match_roles_with_priority(keywords):
+    all_roles = []
+    matched_roles = {}
+    
+    for kw in keywords:
+        kw_lower = kw.lower()
+        roles = keyword_to_roles.get(kw_lower, [])
+        matched_roles[kw_lower] = roles
+        all_roles.extend(roles)
+
+    role_counter = Counter(all_roles)
+    top_3_roles = [role for role, _ in role_counter.most_common(3)]
+    unique_roles = sorted(set(all_roles ))
+    return matched_roles, unique_roles, top_3_roles
 
 
 # 2. Create a Google Search link / 구글 검색 링크 생성

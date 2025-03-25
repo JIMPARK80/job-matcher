@@ -18,4 +18,4 @@ A lightweight Flask app that analyzes a PDF resume, extracts key tech skills, an
 - AI-powered role matching (GPT)
 - Save profile & history
 
-Made with ❤️ by Jinsung ParkS
+Made with ❤️ by Jinsung Park

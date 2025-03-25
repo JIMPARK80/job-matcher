@@ -123,3 +123,23 @@ body {
   color: #2e5acd;
   font-weight: bold;
 }
+
+
+.role-tag {
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px 12px;
+  margin: 5px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+}
+
+.strong-role {
+  background-color: #d5ccff;
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #8676f2;
+}
