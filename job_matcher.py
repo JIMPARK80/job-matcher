@@ -42,23 +42,23 @@ def extract_text_from_pdf(input_data):
 
 def extract_profile_info(text):
     import re
+
     email_match = re.search(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", text)
-    phone_match = re.search(r"\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}", text)
+    phone_match = re.search(r"(?:\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}", text)
     linkedin_match = re.search(r"(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9-_]+", text)
-    # 링크 보정 처리
+
+    # 💡 LinkedIn 링크 자동 보정
+    linkedin_url = ""
     if linkedin_match:
-        raw_link = linkedin_match.group(0)
-        if not raw_link.startswith("http"):
-            raw_link = "https://www." + raw_link.lstrip("www.")
-    else:
-        raw_link = ""
+        linkedin_url = linkedin_match.group(0)
+        if not linkedin_url.startswith("http"):
+            linkedin_url = "https://www." + linkedin_url.lstrip("www.")
 
     return {
         "email": email_match.group(0) if email_match else "",
         "phone": phone_match.group(0) if phone_match else "",
-        "linkedin": linkedin_match.group(0) if linkedin_match else ""
+        "linkedin": linkedin_url
     }
-
 
 # 1. Technical Keywords Extraction Function / 기술 키워드 추출 함수 
 def extract_keywords_from_resume(input_data, is_pdf=True):
