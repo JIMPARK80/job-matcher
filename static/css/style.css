@@ -79,17 +79,20 @@ body {
   padding: 12px;
   min-height: 40px;
   font-size: 14px;
+  gap: 10px 14px; /* 일정한 간격 유지 */
 }
 
 .skill-tag, .role-tag {
   display: inline-block;
   background-color: #f2f2f2;
-  padding: 6px 10px;
-  margin: 4px;
+  padding: 6px 12px;
+  margin: 6px 8px;   /* 💡 간격 통일 */
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 13px;
+  line-height: 1.4;   /* 줄 간격 부드럽게 */
 }
+
 
 .ai-toggle button {
   background-color: #b2a8f4;
@@ -142,4 +145,10 @@ body {
   color: #000;
   font-weight: bold;
   border: 2px solid #8676f2;
+}
+
+.box-section {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px dashed #ccc;
 }

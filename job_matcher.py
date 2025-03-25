@@ -42,14 +42,11 @@ def extract_text_from_pdf(input_data):
 
 def extract_profile_info(text):
     import re
-
-    name_match = re.search(r"(?:Name|Jinsung Park|[A-Z][a-z]+\s[A-Z][a-z]+)", text)
     email_match = re.search(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", text)
     phone_match = re.search(r"\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}", text)
     linkedin_match = re.search(r"(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9-_]+", text)
 
     return {
-        "name": name_match.group(0) if name_match else "",
         "email": email_match.group(0) if email_match else "",
         "phone": phone_match.group(0) if phone_match else "",
         "linkedin": linkedin_match.group(0) if linkedin_match else ""

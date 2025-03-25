@@ -17,6 +17,8 @@
 
       <!-- Upload Section -->
       <!-- ✅ 수정된 Form: Upload + Location 선택 같이 들어감 -->
+
+    <div class="box-section">
     <form method="POST" action="/submit_pdf" enctype="multipart/form-data">
       <div class="upload-section">
         <label class="upload-label">PDF File</label>
@@ -36,71 +38,86 @@
         <button type="submit" class="submit-button">Submit</button>
       </div>
     </form>
+    </div>
 
-      <!-- Profile + Skills -->
-      <div class="profile-skill-row">
-        <div class="profile-box">
-          <div class="label">Profile</div>
-            <p> - basic your profile </p>
-            <div class="output-box">
-            <p><strong>Name:</strong> {{ profile.name }}</p>
-            <p><strong>Email:</strong> {{ profile.email }}</p>
-            <p><strong>Phone:</strong> {{ profile.phone }}</p>
-            <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="skills-box">
-          <div class="label">Skills</div>
-          <p> - keywords from resume </p>
+    <!-- Profile + Skills -->
+    <div class="box-section">
+    <div class="profile-skill-row">
+      <div class="profile-box">
+        <div class="label">Profile</div>
+          <p> - basic your profile </p>
           <div class="output-box">
-            {% for kw in keywords %}
-              <span class="skill-tag">{{ kw }}</span>
-            {% endfor %}
-          </div>
+            {% if profile %}
+              <p><strong>Email:</strong> {{ profile.email }}</p>
+              <p><strong>Phone:</strong> {{ profile.phone }}</p>
+              <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a></p>
+            {% else %}
+            <p>No profile info available yet.</p>
+            {% endif %}
+            </div>
         </div>
       </div>
-
-      <!-- Suggested Roles -->
-      <div class="suggested-role-box">
-        <div class="label">Suggested Role</div>
-        <p> - Top-3 position from keywords </p>
+    </div>
+    
+    <div class="box-section">
+      <div class="skills-box">
+        <div class="label">Skills</div>
+        <p> - keywords from resume </p>
         <div class="output-box">
-          {% for role in unique_roles %}
-            {% if role in top_roles %}
-              <span class="role-tag strong-role">{{ role }}</span>
-            {% else %}
-                <span class="role-tag">{{ role }}</span>
-            {% endif %}
+          {% for kw in keywords %}
+            <span class="skill-tag">{{ kw }}</span>
           {% endfor %}
         </div>
       </div>
-
-      <!-- Location + AI Toggle -->
-      <div class="location-ai-row">
-        <div class="ai-toggle-box">
-          <div class="label">AI Assistance</div>
-          <div class="ai-toggle">
-            <button class="ai-on">ON</button>
-            <button class="ai-off">Off</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Search Results -->
-      <div class="search-result-box">
-        <div class="label">Search Result</div>
-        <p> - Top-3 position search result </p>
-        <div class="output-box">
-          <ul>
-            {% for role, url in google_links %}
-              <li><a href="{{ url }}" target="_blank">🔗 {{ role }} - {{location}} </a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-
     </div>
+    </div>
+
+    <!-- Suggested Roles -->
+    <div class="box-section">
+    <div class="suggested-role-box">
+      <div class="label">Suggested Role</div>
+      <p> - Top-3 position from keywords </p>
+      <div class="output-box">
+        {% for role in unique_roles %}
+          {% if role in top_roles %}
+            <span class="role-tag strong-role">{{ role }}</span>
+          {% else %}
+              <span class="role-tag">{{ role }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+
+    <!-- Location + AI Toggle -->
+    <div class="box-section">
+    <div class="location-ai-row">
+      <div class="ai-toggle-box">
+        <div class="label">AI Assistance</div>
+        <p> - Do it later </p>
+        <div class="ai-toggle">
+          <button class="ai-on">ON</button>
+          <button class="ai-off">Off</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="box-section">
+    <div class="search-result-box">
+      <div class="label">Search Result</div>
+      <p> - Top-3 position search result </p>
+      <div class="output-box">
+        <ul>
+          {% for role, url in google_links %}
+            <li><a href="{{ url }}" target="_blank">🔗 {{ role }} - {{location}} </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
   </div>
 </body>
 </html>
