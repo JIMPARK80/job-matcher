@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, jsonify
 from io import BytesIO
 from job_matcher import (
     extract_keywords_from_resume,
-    role_descriptions,
     search_google_jobs,
     match_roles_with_priority,
     extract_text_from_pdf,  # Added missing import
@@ -46,7 +45,6 @@ def submit_pdf():
 
         # 👉 역할 매칭
         matched_roles, unique_roles, top_roles = match_roles_with_priority(keywords)
-        role_desc = get_role_descriptions(unique_roles)
 
         # 👉 상위 3개 직무만 구글 링크 생성
         job_links = [
@@ -60,7 +58,6 @@ def submit_pdf():
             filename=file.filename,
             matched_roles=matched_roles,
             google_links=job_links,
-            role_desc=role_desc,
             unique_roles=unique_roles,
             location=location,
             top_roles=top_roles,
@@ -87,16 +84,6 @@ def job_preview(role, city):
 @app.errorhandler(413)
 def file_too_large(e):
     return "❌ File too large. Please upload a PDF under 2MB.", 413
-
-
-# ------------------------------
-# 역할 설명 반환 함수
-# ------------------------------
-def get_role_descriptions(roles):
-    return {
-        role: role_descriptions.get(role.lower(), "(description not available)")
-        for role in roles
-    }
 
 
 # ------------------------------
