@@ -45,6 +45,13 @@ def extract_profile_info(text):
     email_match = re.search(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", text)
     phone_match = re.search(r"\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}", text)
     linkedin_match = re.search(r"(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9-_]+", text)
+    # 링크 보정 처리
+    if linkedin_match:
+        raw_link = linkedin_match.group(0)
+        if not raw_link.startswith("http"):
+            raw_link = "https://www." + raw_link.lstrip("www.")
+    else:
+        raw_link = ""
 
     return {
         "email": email_match.group(0) if email_match else "",
