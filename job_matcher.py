@@ -138,37 +138,8 @@ keyword_to_roles = {
     "problem-solving": ["QA Tester", "Software Developer"]
 }
 
-role_descriptions = {
-    "frontend developer": "Creates user-facing interfaces using HTML, CSS, and JavaScript.",
-    "backend developer": "Builds server-side logic, APIs, and database integration.",
-    "web developer": "Develops and maintains websites and web applications.",
-    "data analyst": "Analyzes data to help businesses make decisions.",
-    "ml engineer": "Designs machine learning systems and models.",
-    "game developer": "Builds interactive games using game engines like Unity or Unreal.",
-    "devops engineer": "Manages infrastructure and deployment pipelines.",
-    "api developer": "Creates and maintains APIs for system integration.",
-    "cloud engineer": "Develops and manages cloud-based systems.",
-    "ui developer": "Implements visual designs into functional interfaces.",
-    "software engineer": "Designs and develops software systems and applications.",
-    "database developer": "Designs and optimizes database structures and queries.",
-    "version control specialist": "Manages codebases using Git and version control tools.",
-    "automation engineer": "Automates testing, deployment, and operations processes.",
-    "ci/cd engineer": "Implements Continuous Integration and Deployment systems.",
-    "project manager": "Plans, executes, and closes projects efficiently.",
-    "scrum master": "Facilitates agile development and daily stand-ups.",
-    "ai researcher": "Explores cutting-edge AI algorithms and models.",
-    "xr developer": "Creates extended reality applications for AR/VR.",
-}
 
-role_descriptions.update({
-    "3d simulation developer": "Develops immersive 3D environments for simulation, training, or visualization purposes.",
-    "database engineer": "Designs and optimizes database systems for performance, scalability, and security.",
-    "full stack developer": "Handles both front-end and back-end development, bridging UI with server-side logic.",
-    "software developer": "Writes and maintains software applications, tools, or systems for a variety of purposes.",
-    "ui engineer": "Bridges design and development by implementing high-quality, scalable user interfaces with engineering principles.",
-})
-
-# 1-2._
+# 1-2. Match Roles with Priority / 역할과 우선순위 매칭
 def match_roles_with_priority(keywords):
     all_roles = []
     matched_roles = {}
@@ -196,30 +167,4 @@ def google_job_urls_from_roles(matched_roles, location="Toronto"):
     return job_links
 
 
-# 3. Main run / 메인 실행
-if __name__ == "__main__":
-    resume_pdf = "PDF/resume.pdf"  # PDF path / PDF 경로
-
-    try: # Try to extract keywords / 키워드 추출 시
-        keywords = extract_keywords_from_resume(resume_pdf)
-
-        # Print keywords / 키워드 출력
-        print("\n📄 Keywords found in your resume:")
-        print(", ".join(keywords))
-        
-        # Suggested roles per keyword / 키워드 별 제안된 역할
-        print("\n💼 Suggested roles per keyword:")
-        for kw in keywords:
-            roles = keyword_to_roles.get(kw, ["(No specific match)"])
-            print(f"- {kw}: {', '.join(roles)}")
-
-        # Google links / 구글 링크
-        print("\n🔗 Google job search links:")
-        for kw in keywords: # Print Google job search links / 구글 직업 검색 링크 출력
-            print(f"- {kw}: {google_job_urls_from_roles(kw)}") 
-
-    except FileNotFoundError: # If file not found / 파일을 찾을 수 없는 경우
-        print(f"❌ Could not find file: {resume_pdf}")
-    except Exception as e: # If error occurred / 오류 발생 시
-        print(f"❌ Error occurred: {e}")
 
