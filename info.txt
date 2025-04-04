@@ -1,0 +1,93 @@
+1. 가상환경 생성
+py -m venv venv
+
+2. 가상환경 활성화
+.\venv\Scripts\activate
+
+(활성화되면 프롬프트 앞에 (venv)가 표시됩니다)
+
+
+3. 패키지 설치
+pip install -r requirements.txt
+
+
+4. Flask 앱 실행
+python app.py
+
+5. 웹 브라우저에서 확인
+http://localhost:5000 접속
+
+
+
+
+-----------------------------------
+
+Render 배포 
+
+1. app.py 만들기
+→ Flask 앱 실행 코드 포함
+
+2.  필요한 파일 구조 정리
+/templates/index.html      # HTML UI
+/static/style.css, upload.js  # CSS/JS
+app.py
+job_matcher.py             # 기능 함수들
+requirements.txt
+render.yaml
+
+3. requirements.txt
+flask # Flask framework
+gunicorn # WSGI server
+pdfminer.six # PDF parsing
+pdfplumber # PDF parsing
+requests # HTTP requests
+beautifulsoup4 # HTML parsing
+openai # OpenAI API
+spacy # NLP library
+serpapi # SerpApi for Google Search
+google-search-results # Alternative name for SerpApi
+
+4. render.yaml 생성
+services:
+  - type: web
+    name: job-matcher
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.13
+      - key: SERPAPI_KEY
+        value: 5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117
+
+5. GitHub에 푸시
+
+git init
+git remote add origin https://github.com/사용자명/레포명
+git add .
+git commit -m "initial commit"
+git push -u origin main
+
+6.  Render에서 배포 설정
+https://render.com 회원가입 및 로그인
+
+New → Web Service 선택
+
+GitHub 연동 → job-matcher 리포지토리 선택
+
+설정 값 확인:
+
+Build Command: pip install -r requirements.txt
+
+Start Command: gunicorn app:app
+
+Python 3, Free Plan 선택
+
+7. 환경 변수 설정
+Render > Services > job-matcher 클릭
+
+왼쪽 메뉴에서 Environment 선택
+
++ Add 버튼 클릭 후 입력:
+SERPAPI_KEY	/  (SerpAPI에서 발급받은 API 키)
