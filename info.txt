@@ -1,93 +1,140 @@
-1. 가상환경 생성
-py -m venv venv
+✅ Local Development (Virtual Environment)
 
-2. 가상환경 활성화
-.\venv\Scripts\activate
+1. Create a virtual environment
+   py -m venv venv
 
-(활성화되면 프롬프트 앞에 (venv)가 표시됩니다)
+2. Activate the virtual environment
+   .\venv\Scripts\activate
+   (You’ll see (venv) at the beginning of the terminal prompt)
 
+3. Install dependencies
+   pip install -r requirements.txt
 
-3. 패키지 설치
-pip install -r requirements.txt
+4. Run the Flask app
+   python app.py
 
-
-4. Flask 앱 실행
-python app.py
-
-5. 웹 브라우저에서 확인
-http://localhost:5000 접속
-
+5. Open your browser
+   http://localhost:5000
 
 
+----------------------------------------
 
------------------------------------
+🚀 Deployment to Render
 
-Render 배포 
+1. Create app.py
+   → Contains your Flask app code
 
-1. app.py 만들기
-→ Flask 앱 실행 코드 포함
+2. Organize project folder structure:
+   /templates/index.html         # HTML UI
+   /static/style.css, upload.js  # CSS/JS
+   app.py
+   job_matcher.py                # logic functions
+   requirements.txt
+   render.yaml
 
-2.  필요한 파일 구조 정리
-/templates/index.html      # HTML UI
-/static/style.css, upload.js  # CSS/JS
-app.py
-job_matcher.py             # 기능 함수들
-requirements.txt
-render.yaml
+3. Create requirements.txt
+   flask
+   gunicorn
+   pdfminer.six
+   pdfplumber
+   requests
+   beautifulsoup4
+   openai
+   spacy
+   serpapi
+   google-search-results
 
-3. requirements.txt
-flask # Flask framework
-gunicorn # WSGI server
-pdfminer.six # PDF parsing
-pdfplumber # PDF parsing
-requests # HTTP requests
-beautifulsoup4 # HTML parsing
-openai # OpenAI API
-spacy # NLP library
-serpapi # SerpApi for Google Search
-google-search-results # Alternative name for SerpApi
+4. Create render.yaml
+   services:
+     - type: web
+       name: job-matcher
+       env: python
+       plan: free
+       buildCommand: pip install -r requirements.txt
+       startCommand: python -m gunicorn app:app
+       envVars:
+         - key: PYTHON_VERSION
+           value: 3.9.13
+         - key: SERPAPI_KEY
+           value: 5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117
 
-4. render.yaml 생성
-services:
-  - type: web
-    name: job-matcher
-    env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python -m gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.13
-      - key: SERPAPI_KEY
-        value: 5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117
+5. Push project to GitHub
+   git init
+   git remote add origin https://github.com/your-username/repo-name
+   git add .
+   git commit -m "initial commit"
+   git push -u origin main
 
-5. GitHub에 푸시
+6. Deploy to Render
+   - Go to https://render.com
+   - Click [New] → Web Service
+   - Connect GitHub → Select job-matcher repo
 
-git init
-git remote add origin https://github.com/사용자명/레포명
-git add .
-git commit -m "initial commit"
-git push -u origin main
+   Check settings:
+   Build Command: pip install -r requirements.txt
+   Start Command: gunicorn app:app
+   Python version: 3
+   Plan: Free
 
-6.  Render에서 배포 설정
-https://render.com 회원가입 및 로그인
+7. Set Environment Variable
+   - Go to: Services → job-matcher → Environment
+   - Click [+ Add]
+   - Key: SERPAPI_KEY
+     Value: (your actual SerpAPI API key)
+   - Click "Save, Rebuild, and Deploy"
 
-New → Web Service 선택
+8. Deployment Success
+   - Access your live app at:
+     https://job-matcher-XXXX.onrender.com
 
-GitHub 연동 → job-matcher 리포지토리 선택
 
-설정 값 확인:
+----------------------------------------------------------
 
-Build Command: pip install -r requirements.txt
 
-Start Command: gunicorn app:app
+✅ Run the Program
 
-Python 3, Free Plan 선택
+1. Running Locally:
+- Make sure virtual environment is activated
+- Install packages:
+  pip install -r requirements.txt
 
-7. 환경 변수 설정
-Render > Services > job-matcher 클릭
+- Set the environment variable:
+  Windows:
+    set SERPAPI_KEY=your_api_key
+  macOS/Linux:
+    export SERPAPI_KEY=your_api_key
 
-왼쪽 메뉴에서 Environment 선택
+- Run the Flask app:
+  python app.py
 
-+ Add 버튼 클릭 후 입력:
-SERPAPI_KEY	/  (SerpAPI에서 발급받은 API 키)
+- Open in browser:
+  http://127.0.0.1:5000/
+
+
+✅ Running with .env (Recommended)
+
+1. Create a `.env` file in the root directory:
+   SERPAPI_KEY=your_api_key
+
+2. Add `python-dotenv` to requirements.txt:
+   python-dotenv
+
+3. Modify app.py to load environment variables:
+   from dotenv import load_dotenv
+   load_dotenv()
+
+4. Add `.env` to .gitignore to protect your key:
+   .env
+
+→ This way, SERPAPI_KEY will load automatically when you run the app locally.
+
+
+✅ Deploying to Render
+
+- Push changes to GitHub:
+  git add .
+  git commit -m "Update for local dotenv support"
+  git push origin main
+
+→ Render will auto-deploy using your latest commit.
+→ In production, set SERPAPI_KEY in Render's Environment tab.
