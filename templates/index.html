@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="/static/css/style.css" />
   <title>JOB Position Matching APP</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
   <div class="box">
@@ -16,108 +16,116 @@
       </div>
 
       <!-- Upload Section -->
-      <!-- ✅ 수정된 Form: Upload + Location 선택 같이 들어감 -->
-
-    <div class="box-section">
-    <form method="POST" action="/submit_pdf" enctype="multipart/form-data">
-      <div class="upload-section">
-        <label class="upload-label">PDF File</label>
-        <input type="file" name="resume" accept=".pdf" class="upload-input" required />
-
-        <!-- ✅ Location 선택 -->
-        <label class="upload-label" style="margin-top: 10px;">Location</label>
-        <select name="location" class="dropdown">
-          <option value="Toronto" {% if location == 'Toronto' %}selected{% endif %}>Toronto</option>
-          <option value="Vancouver" {% if location == 'Vancouver' %}selected{% endif %}>Vancouver</option>
-          <option value="Montreal" {% if location == 'Montreal' %}selected{% endif %}>Montreal</option>
-          <option value="Calgary" {% if location == 'Calgary' %}selected{% endif %}>Calgary</option>
-          <option value="Ottawa" {% if location == 'Ottawa' %}selected{% endif %}>Ottawa</option>
-        </select>
-
-        <!-- ✅ Submit button -->
-        <button type="submit" class="submit-button">Submit</button>
-      </div>
-    </form>
-    </div>
-
-    <!-- Profile + Skills -->
-    <div class="box-section">
-    <div class="profile-skill-row">
-      <div class="profile-box">
-        <div class="label">Profile</div>
-          <p> - basic your profile </p>
-          <div class="output-box">
-            {% if profile %}
-              <p><strong>Email:</strong> {{ profile.email }}</p>
-              <p><strong>Phone:</strong> {{ profile.phone }}</p>
-              <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a></p>
-            {% else %}
-            <p>No profile info available yet.</p>
-            {% endif %}
+      <div class="box-section">
+        <form method="POST" action="/submit_pdf" enctype="multipart/form-data" id="uploadForm">
+          <div class="upload-section">
+            <label class="upload-label">PDF File</label>
+            
+            <!-- 파일 선택 영역 -->
+            <div class="file-select-area">
+              <div class="file-input-wrapper">
+                <button type="button" class="file-select-button" onclick="document.getElementById('fileInput').click()">파일 선택</button>
+                <span class="selected-file-name" id="selectedFileName">{% if filename %}{{ filename }}{% else %}선택된 파일 없음{% endif %}</span>
+                <input type="file" name="resume" accept=".pdf" class="upload-input" id="fileInput" {% if not filename %}required{% endif %} />
+              </div>
             </div>
+
+            <!-- Location 선택 -->
+            <label class="upload-label">Location</label>
+            <select name="location" class="dropdown">
+              <option value="Toronto" {% if location == 'Toronto' %}selected{% endif %}>Toronto</option>
+              <option value="Vancouver" {% if location == 'Vancouver' %}selected{% endif %}>Vancouver</option>
+              <option value="Montreal" {% if location == 'Montreal' %}selected{% endif %}>Montreal</option>
+              <option value="Calgary" {% if location == 'Calgary' %}selected{% endif %}>Calgary</option>
+              <option value="Ottawa" {% if location == 'Ottawa' %}selected{% endif %}>Ottawa</option>
+            </select>
+
+            <button type="submit" class="submit-button" id="submitBtn">Submit</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Profile + Skills -->
+      <div class="box-section">
+      <div class="profile-skill-row">
+        <div class="profile-box">
+          <div class="label">Profile</div>
+            <p> - basic your profile </p>
+            <div class="output-box">
+              {% if profile %}
+                <p><strong>Email:</strong> {{ profile.email }}</p>
+                <p><strong>Phone:</strong> {{ profile.phone }}</p>
+                <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a></p>
+              {% else %}
+              <p>No profile info available yet.</p>
+              {% endif %}
+              </div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div class="box-section">
-      <div class="skills-box">
-        <div class="label">Skills</div>
-        <p> - keywords from resume </p>
+      
+      <div class="box-section">
+        <div class="skills-box">
+          <div class="label">Skills</div>
+          <p> - keywords from resume </p>
+          <div class="output-box">
+            {% for kw in keywords %}
+              <span class="skill-tag">{{ kw }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- Suggested Roles -->
+      <div class="box-section">
+      <div class="suggested-role-box">
+        <div class="label">Suggested Role</div>
+        <p> - Top-3 position from keywords </p>
         <div class="output-box">
-          {% for kw in keywords %}
-            <span class="skill-tag">{{ kw }}</span>
+          {% for role in unique_roles %}
+            {% if role in top_roles %}
+              <span class="role-tag strong-role">{{ role }}</span>
+            {% else %}
+                <span class="role-tag">{{ role }}</span>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
-    </div>
-    </div>
-
-    <!-- Suggested Roles -->
-    <div class="box-section">
-    <div class="suggested-role-box">
-      <div class="label">Suggested Role</div>
-      <p> - Top-3 position from keywords </p>
-      <div class="output-box">
-        {% for role in unique_roles %}
-          {% if role in top_roles %}
-            <span class="role-tag strong-role">{{ role }}</span>
-          {% else %}
-              <span class="role-tag">{{ role }}</span>
-          {% endif %}
-        {% endfor %}
       </div>
-    </div>
-    </div>
 
-    <!-- Location + AI Toggle -->
-    <div class="box-section">
-    <div class="location-ai-row">
-      <div class="ai-toggle-box">
-        <div class="label">AI Assistance</div>
-        <p> - Do it later </p>
-        <div class="ai-toggle">
-          <button class="ai-on">ON</button>
-          <button class="ai-off">Off</button>
+      <!-- Location + AI Toggle -->
+      <div class="box-section">
+      <div class="location-ai-row">
+        <div class="ai-toggle-box">
+          <div class="label">AI Assistance</div>
+          <p> - Do it later </p>
+          <div class="ai-toggle">
+            <button class="ai-on">ON</button>
+            <button class="ai-off">Off</button>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
+      </div>
 
-    <!-- Search Results -->
-    <div class="box-section">
-    <div class="search-result-box">
-      <div class="label">Search Result</div>
-      <p> - Top-3 position search result </p>
-      <div class="output-box">
-        <ul>
-          {% for role, url in google_links %}
-            <li><a href="{{ url }}" target="_blank">🔗 {{ role }} - {{location}} </a></li>
-          {% endfor %}
-        </ul>
+      <!-- Search Results -->
+      <div class="box-section">
+      <div class="search-result-box">
+        <div class="label">Search Result</div>
+        <p> - Top-3 position search result </p>
+        <div class="output-box">
+          <ul>
+            {% for role, url in google_links %}
+              <li><a href="{{ url }}" target="_blank">🔗 {{ role }} - {{location}} </a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
       </div>
     </div>
     </div>
-  </div>
-  </div>
+
+    <!-- JavaScript -->
+    <script src="/static/js/upload.js"></script>
 </body>
 </html>

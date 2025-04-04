@@ -6,7 +6,7 @@ import os # os: Miscellaneous operating system interfaces
 from collections import Counter # Counter: A dict subclass for counting hashable objects
 
 
-# API Key는 환경변수 또는 config 파일로 관리 권장
+# API Key is managed in the environment variable or config file
 SERPAPI_KEY = os.getenv("SERPAPI_KEY", "5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117")
 
 def search_google_jobs(query, location="Toronto"):
@@ -22,7 +22,7 @@ def search_google_jobs(query, location="Toronto"):
     print("[DEBUG] SERPAPI 응답 구조:")
     import pprint; pprint.pprint(results)
 
-    # 아래는 fallback 로직 포함
+    # The following is a fallback logic
     if "jobs_results" in results:
         return results["jobs_results"]
     elif "organic_results" in results:
@@ -47,7 +47,7 @@ def extract_profile_info(text):
     phone_match = re.search(r"(?:\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}", text)
     linkedin_match = re.search(r"(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9-_]+", text)
 
-    # 💡 LinkedIn 링크 자동 보정
+    # 💡 Automatically correct LinkedIn links
     linkedin_url = ""
     if linkedin_match:
         linkedin_url = linkedin_match.group(0)
@@ -60,7 +60,7 @@ def extract_profile_info(text):
         "linkedin": linkedin_url
     }
 
-# 1. Technical Keywords Extraction Function / 기술 키워드 추출 함수 
+# 1. Technical Keywords Extraction Function 
 def extract_keywords_from_resume(input_data, is_pdf=True):
     try:
         with pdfplumber.open(BytesIO(input_data)) as pdf:
@@ -81,15 +81,15 @@ def extract_keywords_from_resume(input_data, is_pdf=True):
         'TDD', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'Objective-C', 'Unity', 'TensorFlow', 'PyTorch',
         'Unreal Engine', 'Machine Learning', 'Deep Learning', 'Computer Vision', 'NLP', 'Big Data',
     
-    ] # List of technical keywords / 기술 키워드 목록
+    ] # List of technical keywords 
 
-    # improved accurarcy: using word boundaries  / 정확도 개선: 단어 경계 사용
+    # improved accurarcy: using word boundaries 
     keywords_found = [
         keyword for keyword in tech_keywords 
         if re.search(rf"\b{re.escape(keyword)}\b", text, re.IGNORECASE)
-    ] # Extract keywords from text / 텍스트에서 키워드 추출
-
-    return keywords_found # Return keywords / 키워드 반환
+    ] # Extract keywords from text 
+    
+    return keywords_found # Return keywords 
 
 keyword_to_roles = {
     "javascript": ["Frontend Developer", "Web Developer"],
@@ -146,7 +146,7 @@ keyword_to_roles = {
 }
 
 
-# 1-2. Match Roles with Priority / 역할과 우선순위 매칭
+# 1-2. Match Roles with Priority 
 def match_roles_with_priority(keywords):
     all_roles = []
     matched_roles = {}
@@ -163,7 +163,7 @@ def match_roles_with_priority(keywords):
     return matched_roles, unique_roles, top_3_roles
 
 
-# 2. Create a Google Search link / 구글 검색 링크 생성
+# 2. Create a Google Search link
 def google_job_urls_from_roles(matched_roles, location="Toronto"):
     job_links = []
     for roles in matched_roles.values():
