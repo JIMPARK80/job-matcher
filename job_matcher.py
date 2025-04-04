@@ -9,7 +9,7 @@ from collections import Counter # Counter: A dict subclass for counting hashable
 # API Key is managed in the environment variable or config file
 SERPAPI_KEY = os.getenv("SERPAPI_KEY", "5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117")
 
-def search_google_jobs(query, location="Toronto"):
+def search_google_jobs(query, location="Toronto"): # search the google jobs
     params = {
         "q": f"{query} jobs in {location}",
         "location": location,
@@ -19,7 +19,7 @@ def search_google_jobs(query, location="Toronto"):
     search = GoogleSearch(params)
     results = search.get_dict()
 
-    print("[DEBUG] SERPAPI 응답 구조:")
+    print("[DEBUG] SERPAPI response structure:")
     import pprint; pprint.pprint(results)
 
     # The following is a fallback logic

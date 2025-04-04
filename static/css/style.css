@@ -91,18 +91,18 @@ body {
   padding: 12px;
   min-height: 40px;
   font-size: 14px;
-  gap: 10px 14px; /* 일정한 간격 유지 */
+  gap: 10px 14px; /* uniform gap */
 }
 
 .skill-tag, .role-tag {
   display: inline-block;
   background-color: #f2f2f2;
   padding: 6px 12px;
-  margin: 6px 8px;   /* 💡 간격 통일 */
+  margin: 6px 8px;    /* uniform gap */
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 13px;
-  line-height: 1.4;   /* 줄 간격 부드럽게 */
+  line-height: 1.4;    /* line height */
 }
 
 
@@ -165,7 +165,7 @@ body {
   border-bottom: 2px dashed #ccc;
 }
 
-/* 파일 업로드 영역 스타일 */
+/* file upload area style */
 .drag-drop-zone {
   border: 2px dashed #ccc;
   border-radius: 8px;
@@ -212,7 +212,7 @@ body {
   cursor: pointer;
 }
 
-/* 진행 상태 표시줄 */
+/* progress bar style */
 .progress-bar {
   width: 100%;
   height: 4px;
@@ -230,7 +230,7 @@ body {
   transition: width 0.3s ease;
 }
 
-/* 파일 선택 영역 스타일 */
+/* file select area style */
 .file-select-area {
     margin-bottom: 15px;
 }
@@ -277,7 +277,7 @@ body {
     display: none;
 }
 
-/* 드롭다운 스타일 */
+/* dropdown style */
 .dropdown {
     width: 100%;
     padding: 8px;
@@ -286,7 +286,7 @@ body {
     font-size: 14px;
 }
 
-/* 레이블 스타일 */
+/* label style */
 .upload-label {
     display: block;
     margin-bottom: 5px;
