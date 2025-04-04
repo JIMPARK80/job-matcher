@@ -4,6 +4,11 @@ from io import BytesIO # BytesIO for file handling
 import os
 import uuid # UUID for unique user ID
 from datetime import datetime # datetime for timestamp
+from dotenv import load_dotenv # dotenv for loading environment variables
+
+# Load environment variables from .env file
+load_dotenv()
+
 from job_matcher import ( # job matcher
     extract_keywords_from_resume, # Extract keywords from resume
     search_google_jobs, # Search Google jobs
