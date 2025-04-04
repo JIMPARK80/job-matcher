@@ -8,3 +8,5 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.13
+      - key: SERPAPI_KEY
+        value: 5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117

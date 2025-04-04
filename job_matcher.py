@@ -6,8 +6,10 @@ import os # os: Miscellaneous operating system interfaces
 from collections import Counter # Counter: A dict subclass for counting hashable objects
 
 
-# API Key is managed in the environment variable or config file
-SERPAPI_KEY = os.getenv("SERPAPI_KEY", "5d7dfa49adb35300690962c2996ad37aebeaf8e3c66d89fc8eddff5aa9d1d117")
+# API Key is managed in the environment variable
+SERPAPI_KEY = os.getenv("SERPAPI_KEY")
+if not SERPAPI_KEY:
+    raise ValueError("SERPAPI_KEY environment variable is not set. Please set it to use the Google Search API.")
 
 def search_google_jobs(query, location="Toronto"): # search the google jobs
     params = {
