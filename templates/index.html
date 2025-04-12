@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <title>JOB Position Matching APP</title>
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
+
 <body>
   <div class="box">
     <div class="upload-document-UI">
@@ -21,16 +23,16 @@
           <div class="upload-section">
             <label class="upload-label">PDF File</label>
             
-            <!-- 파일 선택 영역 -->
+            <!-- select file area -->
             <div class="file-select-area">
               <div class="file-input-wrapper">
-                <button type="button" class="file-select-button" onclick="document.getElementById('fileInput').click()">파일 선택</button>
-                <span class="selected-file-name" id="selectedFileName">{% if filename %}{{ filename }}{% else %}선택된 파일 없음{% endif %}</span>
+                <button type="button" class="file-select-button" onclick="document.getElementById('fileInput').click()"> select file</button>
+                <span class="selected-file-name" id="selectedFileName">{% if filename %}{{ filename }}{% else %} no file selected {% endif %}</span>
                 <input type="file" name="resume" accept=".pdf" class="upload-input" id="fileInput" {% if not filename %}required{% endif %} />
               </div>
             </div>
 
-            <!-- Location 선택 -->
+            <!-- select location -->
             <label class="upload-label">Location</label>
             <select name="location" class="dropdown">
               <option value="Toronto" {% if location == 'Toronto' %}selected{% endif %}>Toronto</option>
